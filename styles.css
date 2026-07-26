@@ -1,0 +1,382 @@
+/* ===== Base ===== */
+:root {
+  --bg: #0f1115;
+  --surface: #171a21;
+  --surface-2: #1e222c;
+  --border: #262b36;
+  --text: #e8eaf0;
+  --muted: #9aa3b2;
+  --accent: #ff5a36;
+  --accent-soft: rgba(255, 90, 54, 0.14);
+  --grip: #f5c542;
+  --grip-soft: rgba(245, 197, 66, 0.14);
+  --core: #4da3ff;
+  --core-soft: rgba(77, 163, 255, 0.14);
+  --done: #3ecf8e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+/* ===== Header ===== */
+.app-header {
+  padding: 24px 0 12px;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.today-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+  text-transform: capitalize;
+}
+
+/* ===== Tabs ===== */
+.day-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 0;
+  background: linear-gradient(var(--bg) 80%, transparent);
+  scrollbar-width: none;
+}
+
+.day-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  flex: 1;
+  min-width: 64px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ===== Day view ===== */
+.day-title {
+  margin: 16px 0 4px;
+  font-size: 1.15rem;
+}
+
+.day-focus {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.rest-banner {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 16px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Progress */
+.progress-wrap {
+  margin-bottom: 20px;
+}
+
+.progress-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--done);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* ===== Exercise card ===== */
+.exercise-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.exercise-card.done {
+  border-color: rgba(62, 207, 142, 0.4);
+}
+
+.exercise-card.done .exercise-name {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.exercise-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.exercise-check {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--done);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.exercise-info {
+  flex: 1;
+}
+
+.exercise-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.exercise-note {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-top: 2px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.badge-scheme {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.badge-grip {
+  background: var(--grip-soft);
+  color: var(--grip);
+}
+
+.badge-core {
+  background: var(--core-soft);
+  color: var(--core);
+}
+
+/* Load input */
+.load-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.load-input {
+  width: 64px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.load-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.load-unit {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ===== Video section ===== */
+.video-section {
+  margin-top: 14px;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-link {
+  display: inline-block;
+  color: var(--core);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.video-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  border-color: #e05252;
+  color: #e05252;
+}
+
+.video-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.video-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.9rem;
+  min-width: 0;
+}
+
+.video-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.video-hint {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 6px;
+}
+
+/* ===== Rules view ===== */
+.rules-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.rules-section h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.rules-section ul {
+  list-style: none;
+}
+
+.rules-section li {
+  padding: 6px 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.rules-section li strong {
+  color: var(--text);
+}
+
+.rules-section li::before {
+  content: "▸ ";
+  color: var(--accent);
+}
+
+/* ===== Footer ===== */
+.app-footer {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
