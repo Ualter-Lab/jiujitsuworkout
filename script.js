@@ -1,19 +1,21 @@
 // ===== Workout data =====
+// videoKey: shared video identifier — same movement, same video on every day
 const WORKOUT_DAYS = [
   {
     id: "monday",
     weekday: 1,
     short: "Seg",
     name: "Segunda",
-    focus: "Upper — Força Máxima + Jiu-jítsu",
+    focus: "Upper — Força + Jiu-jítsu",
     exercises: [
-      { id: "mon-bench", name: "Supino reto", scheme: "5×5" },
-      { id: "mon-weighted-pullup", name: "Barra fixa com peso (ou puxada pesada)", scheme: "5×5" },
-      { id: "mon-barbell-row", name: "Remada curvada", scheme: "4×6" },
-      { id: "mon-ohp", name: "Desenvolvimento militar", scheme: "3×6" },
-      { id: "mon-dips", name: "Paralelas", scheme: "3×8" },
-      { id: "mon-farmers-walk", name: "Farmer's Walk", scheme: "4×40s", grip: true },
-      { id: "mon-dead-hang", name: "Dead Hang", scheme: "3× até quase falhar", grip: true },
+      { id: "mon-bench", videoKey: "bench-press", name: "Supino reto", scheme: "5×5" },
+      { id: "mon-weighted-pullup", videoKey: "pullup", name: "Barra fixa com peso (ou puxada pesada)", scheme: "5×5" },
+      { id: "mon-barbell-row", videoKey: "barbell-row", name: "Remada curvada", scheme: "4×6" },
+      { id: "mon-ohp", videoKey: "overhead-press", name: "Desenvolvimento militar", scheme: "4×5" },
+      { id: "mon-curl", videoKey: "barbell-curl", name: "Rosca direta", scheme: "3×6–8" },
+      { id: "mon-lateral-raise", videoKey: "lateral-raise", name: "Elevação lateral", scheme: "3×12" },
+      { id: "mon-farmers-walk", videoKey: "farmers-walk", name: "Farmer's Walk", scheme: "4×40–60s", grip: true },
+      { id: "mon-dead-hang", videoKey: "dead-hang", name: "Dead Hang", scheme: "3× até quase falhar", grip: true },
     ],
   },
   {
@@ -23,12 +25,12 @@ const WORKOUT_DAYS = [
     name: "Terça",
     focus: "Lower — Força",
     exercises: [
-      { id: "tue-squat", name: "Agachamento livre", scheme: "5×5" },
-      { id: "tue-rdl", name: "Levantamento terra romeno", scheme: "4×6" },
-      { id: "tue-lunge", name: "Afundo", scheme: "3×8" },
-      { id: "tue-calf-raise", name: "Panturrilha", scheme: "4×15" },
-      { id: "tue-weighted-plank", name: "Prancha com peso", scheme: "3×1min", core: true },
-      { id: "tue-leg-raise", name: "Elevação de pernas", scheme: "3×15", core: true },
+      { id: "tue-squat", videoKey: "squat", name: "Agachamento livre", scheme: "5×5" },
+      { id: "tue-rdl", videoKey: "rdl", name: "Levantamento terra romeno", scheme: "4×6" },
+      { id: "tue-lunge", videoKey: "db-lunge", name: "Afundo com halteres", scheme: "3×8 cada perna" },
+      { id: "tue-calf-raise", videoKey: "standing-calf-raise", name: "Panturrilha em pé", scheme: "4×15" },
+      { id: "tue-weighted-plank", videoKey: "weighted-plank", name: "Prancha com peso", scheme: "3×1min", core: true },
+      { id: "tue-leg-raise", videoKey: "leg-raise", name: "Elevação de pernas", scheme: "3×15", core: true },
     ],
   },
   {
@@ -38,13 +40,14 @@ const WORKOUT_DAYS = [
     name: "Quarta",
     focus: "Upper — Potência + Jiu-jítsu",
     exercises: [
-      { id: "wed-speed-bench", name: "Supino explosivo", scheme: "6×3", note: "60–70% da carga máxima" },
-      { id: "wed-pullup", name: "Barra fixa", scheme: "4× máximo" },
-      { id: "wed-seated-row", name: "Remada baixa", scheme: "4×8" },
-      { id: "wed-face-pull", name: "Face Pull", scheme: "3×15" },
-      { id: "wed-hammer-curl", name: "Rosca martelo", scheme: "3×10" },
-      { id: "wed-triceps-rope", name: "Tríceps corda", scheme: "3×10" },
-      { id: "wed-towel-hang", name: "Hangs na toalha", scheme: "3×30–45s", grip: true },
+      { id: "wed-speed-bench", videoKey: "speed-bench", name: "Supino explosivo", scheme: "6×3", note: "60–70% da carga máxima" },
+      { id: "wed-pullup", videoKey: "pullup", name: "Barra fixa", scheme: "4× máximo" },
+      { id: "wed-seated-row", videoKey: "seated-row", name: "Remada baixa", scheme: "4×8" },
+      { id: "wed-db-press", videoKey: "db-shoulder-press", name: "Desenvolvimento com halteres", scheme: "3×8" },
+      { id: "wed-face-pull", videoKey: "face-pull", name: "Face Pull", scheme: "3×15" },
+      { id: "wed-hammer-curl", videoKey: "hammer-curl", name: "Rosca martelo", scheme: "3×8–10" },
+      { id: "wed-triceps-rope", videoKey: "triceps-rope", name: "Tríceps corda", scheme: "3×10" },
+      { id: "wed-towel-hang", videoKey: "towel-hang", name: "Hangs na toalha", scheme: "3×30–45s", grip: true },
     ],
   },
   {
@@ -52,14 +55,15 @@ const WORKOUT_DAYS = [
     weekday: 4,
     short: "Qui",
     name: "Quinta",
-    focus: "Full Body Pesado",
+    focus: "Full Body — Pesado",
     exercises: [
-      { id: "thu-deadlift", name: "Levantamento terra", scheme: "5×3" },
-      { id: "thu-incline-bench", name: "Supino inclinado", scheme: "4×6" },
-      { id: "thu-pullup", name: "Barra fixa", scheme: "4×6" },
-      { id: "thu-ohp", name: "Desenvolvimento militar", scheme: "3×8" },
-      { id: "thu-heavy-farmers", name: "Farmer's Walk pesado", scheme: "5×30s", grip: true },
-      { id: "thu-cable-crunch", name: "Abdominal na polia", scheme: "3×15", core: true },
+      { id: "thu-deadlift", videoKey: "deadlift", name: "Levantamento terra", scheme: "5×3" },
+      { id: "thu-incline-bench", videoKey: "incline-bench", name: "Supino inclinado", scheme: "4×6" },
+      { id: "thu-pullup", videoKey: "pullup", name: "Barra fixa", scheme: "4×6" },
+      { id: "thu-ohp", videoKey: "overhead-press", name: "Desenvolvimento militar", scheme: "3×8" },
+      { id: "thu-one-arm-row", videoKey: "one-arm-row", name: "Remada unilateral", scheme: "3×10" },
+      { id: "thu-heavy-farmers", videoKey: "farmers-walk", name: "Farmer's Walk pesado", scheme: "5×30s", grip: true },
+      { id: "thu-cable-crunch", videoKey: "cable-crunch", name: "Abdominal na polia ou máquina", scheme: "3×15", core: true },
     ],
   },
   {
@@ -69,13 +73,16 @@ const WORKOUT_DAYS = [
     name: "Sexta",
     focus: "Upper — Resistência + Jiu-jítsu",
     exercises: [
-      { id: "fri-bench", name: "Supino reto", scheme: "3×10" },
-      { id: "fri-one-arm-row", name: "Remada unilateral", scheme: "3×10" },
-      { id: "fri-pullup", name: "Barra fixa", scheme: "3× máximo" },
-      { id: "fri-curl", name: "Rosca direta", scheme: "3×12" },
-      { id: "fri-french-press", name: "Tríceps francês", scheme: "3×12" },
-      { id: "fri-dead-hang", name: "Dead Hang", scheme: "3× máximo", grip: true },
-      { id: "fri-wrist-roller", name: "Wrist Roller", scheme: "3 voltas", grip: true },
+      { id: "fri-bench", videoKey: "bench-press", name: "Supino reto", scheme: "3×10" },
+      { id: "fri-one-arm-row", videoKey: "one-arm-row", name: "Remada unilateral", scheme: "3×10" },
+      { id: "fri-pullup", videoKey: "pullup", name: "Barra fixa", scheme: "3× máximo" },
+      { id: "fri-preacher-curl", videoKey: "preacher-curl", name: "Rosca Scott", scheme: "3×10–12" },
+      { id: "fri-reverse-curl", videoKey: "reverse-curl", name: "Rosca inversa", scheme: "3×12" },
+      { id: "fri-french-press", videoKey: "french-press", name: "Tríceps francês", scheme: "3×12" },
+      { id: "fri-lateral-raise", videoKey: "lateral-raise", name: "Elevação lateral", scheme: "3×15" },
+      { id: "fri-reverse-fly", videoKey: "reverse-fly", name: "Crucifixo inverso (ou Face Pull)", scheme: "3×15" },
+      { id: "fri-dead-hang", videoKey: "dead-hang", name: "Dead Hang", scheme: "3× até quase falhar", grip: true },
+      { id: "fri-wrist-roller", videoKey: "wrist-roller", name: "Wrist Roller", scheme: "3 voltas", grip: true },
     ],
   },
 ];
@@ -130,6 +137,56 @@ const storage = {
 const VIDEOS_KEY = "workout-videos";
 const LOADS_KEY = "workout-loads";
 const DONE_KEY = "workout-done";
+
+// Old per-day ids → new shared videoKeys (keeps videos saved before this update)
+const LEGACY_VIDEO_IDS = {
+  "mon-bench": "bench-press",
+  "mon-weighted-pullup": "pullup",
+  "mon-barbell-row": "barbell-row",
+  "mon-ohp": "overhead-press",
+  "mon-dips": "dips",
+  "mon-farmers-walk": "farmers-walk",
+  "mon-dead-hang": "dead-hang",
+  "tue-squat": "squat",
+  "tue-rdl": "rdl",
+  "tue-lunge": "db-lunge",
+  "tue-calf-raise": "standing-calf-raise",
+  "tue-weighted-plank": "weighted-plank",
+  "tue-leg-raise": "leg-raise",
+  "wed-speed-bench": "speed-bench",
+  "wed-pullup": "pullup",
+  "wed-seated-row": "seated-row",
+  "wed-face-pull": "face-pull",
+  "wed-hammer-curl": "hammer-curl",
+  "wed-triceps-rope": "triceps-rope",
+  "wed-towel-hang": "towel-hang",
+  "thu-deadlift": "deadlift",
+  "thu-incline-bench": "incline-bench",
+  "thu-pullup": "pullup",
+  "thu-ohp": "overhead-press",
+  "thu-heavy-farmers": "farmers-walk",
+  "thu-cable-crunch": "cable-crunch",
+  "fri-bench": "bench-press",
+  "fri-one-arm-row": "one-arm-row",
+  "fri-pullup": "pullup",
+  "fri-curl": "barbell-curl",
+  "fri-french-press": "french-press",
+  "fri-dead-hang": "dead-hang",
+  "fri-wrist-roller": "wrist-roller",
+};
+
+function migrateLegacyVideos() {
+  const videos = storage.read(VIDEOS_KEY, {});
+  let changed = false;
+  for (const [oldId, videoKey] of Object.entries(LEGACY_VIDEO_IDS)) {
+    if (videos[oldId]) {
+      if (!videos[videoKey]) videos[videoKey] = videos[oldId];
+      delete videos[oldId];
+      changed = true;
+    }
+  }
+  if (changed) storage.write(VIDEOS_KEY, videos);
+}
 
 function todayKey() {
   return new Date().toISOString().slice(0, 10);
@@ -328,7 +385,7 @@ function buildBadge(text, className) {
 function renderVideoSection(container, exercise) {
   container.innerHTML = "";
   const videos = storage.read(VIDEOS_KEY, {});
-  const url = videos[exercise.id];
+  const url = videos[exercise.videoKey];
 
   if (url) {
     const videoId = parseYouTubeId(url);
@@ -368,7 +425,7 @@ function renderVideoSection(container, exercise) {
     removeBtn.textContent = "Remover";
     removeBtn.addEventListener("click", () => {
       const current = storage.read(VIDEOS_KEY, {});
-      delete current[exercise.id];
+      delete current[exercise.videoKey];
       storage.write(VIDEOS_KEY, current);
       renderVideoSection(container, exercise);
     });
@@ -412,7 +469,7 @@ function showVideoForm(container, exercise) {
       return;
     }
     const videos = storage.read(VIDEOS_KEY, {});
-    videos[exercise.id] = url;
+    videos[exercise.videoKey] = url;
     storage.write(VIDEOS_KEY, videos);
     renderVideoSection(container, exercise);
   });
@@ -421,7 +478,7 @@ function showVideoForm(container, exercise) {
 
   const hint = document.createElement("p");
   hint.className = "video-hint";
-  hint.textContent = "Dica: links do YouTube (inclusive Shorts) aparecem incorporados no card.";
+  hint.textContent = "O vídeo vale para este exercício em todos os dias da semana.";
 
   container.append(form, hint);
   input.focus();
@@ -429,6 +486,8 @@ function showVideoForm(container, exercise) {
 
 // ===== Init =====
 function init() {
+  migrateLegacyVideos();
+
   const now = new Date();
 
   const todayLabel = document.getElementById("today-label");
